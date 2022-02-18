@@ -18,20 +18,20 @@ def page():
 
 @pytest.fixture
 def get_insert_sql_command(page):
-    """ Get INSERT sql command depended on current rows count """
-    random_data['CustomerID'] = str(page.get_all_rows_count() + 1)  # Append with available id
+    """ Get INSERT sql command dependent on current rows count """
+    random_data['CustomerID'] = str(page.get_all_rows_count() + 1)  # Set available id
     return f"INSERT INTO {TABLE} VALUES {str(tuple(random_data.values()))}"
 
 
 @pytest.fixture
 def get_random_row_id(page):
-    """ Get random row id depended on current rows count """
+    """ Get random row id dependent on current rows count """
     return choice(range(1, page.get_all_rows_count() + 1))
 
 
 @pytest.fixture
 def get_update_sql_command(get_random_row_id):
-    """ Get UPDATE sql command depended random row id """
+    """ Get UPDATE sql command with random row id """
     random_data.pop(CUSTOMER_ID_COLUMN)  # Do not update id of the row
     get_set_values = ', '.join(f'{key}="{value}"' for key, value in random_data.items())
     return f'UPDATE {TABLE} SET {get_set_values} WHERE {CUSTOMER_ID_COLUMN}={get_random_row_id}'
@@ -90,8 +90,8 @@ def test_sql_playground_change_and_select(page, get_update_sql_command, get_rand
 
 def test_sql_playground_drop_table_and_restore(wrapped_driver, page):
     """
-    Cобственный автотест
-    Сброс таблицы Customers и последующее восстановление
+    Cобственный автотест.
+    Сброс таблицы Customers и последующее восстановление.
     """
     page.send_new_sql_command(f'DROP TABLE {TABLE}')
 

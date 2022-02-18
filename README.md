@@ -1,4 +1,4 @@
-# Home Tests from WiseBits
+# Home Test from WiseBits
 UI automation for the [SQL playground page](https://www.w3schools.com/sql/trysql.asp?filename=trysql_asc)
 
 ---
